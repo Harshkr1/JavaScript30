@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Understanding JavaScript's Capture</title>
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body class="bod">
 
   <div class="one">
@@ -14,36 +16,63 @@
     </div>
   </div>
 
-<style>
-  html {
-    box-sizing: border-box;
-  }
+  <style>
+    html {
+      box-sizing: border-box;
+    }
 
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
 
-  div {
-    width: 100%;
-    padding: 100px;
-  }
+    div {
+      width: 100%;
+      padding: 100px;
+    }
 
-  .one {
-    background: thistle;
-  }
+    .one {
+      background: thistle;
+    }
 
-  .two {
-    background: mistyrose;
-  }
+    .two {
+      background: mistyrose;
+    }
 
-  .three {
-    background: coral;
-  }
-</style>
+    .three {
+      background: coral;
+    }
+  </style>
 
-<button></button>
-<script>
+  <button></button>
 
-</script>
+  <script>
+
+
+    //since one is inside other hence when we are cliking one one then all the other theree are gettingclicked 
+    //when we click three we really cliked on two and one as it wraps around the main one here 
+
+    //this concept belwoe is  
+    const divs = document.querySelectorAll('div');
+    const btn = document.querySelector('button');
+    function logText(e) {
+      console.log(this.classList.value);
+
+
+      //this will prevent execution of parent node when normal node is clicked here 
+      //this is very important here 
+      //stop bubbling here it means here 
+
+      //if capture becomes true then it will always exectue the same value here 
+      e.stopPropagation();
+    }
+    //this is true about once here 
+    divs.forEach(div => div.addEventListener('click', logText, { capture: false, once: false },));
+
+    //it cannnt be clicked more then once here 
+    btn.addEventListener('click', () => { alert('i  can get clicked only once when one is on ') }, { once: true });
+  </script> 
 </body>
+
 </html>
